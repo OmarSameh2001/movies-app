@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import MovieSearch from "../../components/MovieSearch/MovieSearch";
 import MoviePagination from "../../components/MoviePaginaition/MoviePagination";
+import { useSelector } from "react-redux";
 
 function Movies() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
+  const favourites = useSelector((state) => state.favourite.value);
   const apiKey =
     "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMGIwMzNjMTRlYWQzZGNjNWI1MGI5NmY1Y2RhNDI1NSIsInN1YiI6IjY2NjA4ZWQxNzk5Y2VkYzMzYWYyNjc2MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h-AopGEMHd18jKlzGbuY0m0KYABiWi85y15C731RUoQ";
 
@@ -43,7 +45,7 @@ function Movies() {
       <div className="row d-flex justify-content-center align-items-center">
         {movies.length > 0 ?
           movies.map((movie) => {
-            return <MovieCard movie={movie} />;
+            return <MovieCard movie={movie} key={movie.id} favourites={favourites}/>;
           }) : <h1 className="mt-3">No movies found for {searchTerm}</h1>}
       </div>
     </div>

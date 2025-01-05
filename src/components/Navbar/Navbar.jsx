@@ -1,4 +1,4 @@
-import { FaHeart } from "react-icons/fa";
+import { FaHeart, FaUser } from "react-icons/fa";
 import { Link } from "react-router";
 
 function Navbar() {
@@ -9,10 +9,17 @@ function Navbar() {
                     <h1>Movie App</h1>
                 </Link>
             </div>
-            <div className="links d-flex align-items-center gap-2" style={{cursor: "pointer"}}>
-                <FaHeart />
-                <p className="m-0">Watchlist</p>
+            <div className="links d-flex align-items-center gap-3">
+                <Link to="/register" className="links d-flex align-items-center gap-2" style={{textDecoration: "none", color: "black"}}>
+                    <FaUser />
+                    <p className="m-0">Register</p>
+                </Link>
+                <Link to="/favourites" className="links d-flex align-items-center gap-2" style={{textDecoration: "none", color: "black"}}>
+                    <FaHeart />
+                    <p className="m-0">Favourites</p>
+                </Link>
             </div>
+            
         </div>
     );
 }

@@ -12,7 +12,7 @@ function MovieSearch(props) {
   }
   return (
     <div className="d-flex justify-content-center align-items-center gap-1">
-      <div class="input-group" style={{ width: "fit-content" }}>
+      <div className="input-group" style={{ width: "fit-content" }}>
         <span className="input-group-text" id="basic-addon1">
           Movie Name
         </span>
