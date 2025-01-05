@@ -15,6 +15,7 @@ function App() {
       <BrowserRouter >
         <Navbar />
         <Routes>
+          <Route path="/" element={<Movies />} />
           <Route path="/movies" element={<Movies />} />
           <Route path='/movies/:id' element={<MoviePage />} />
           <Route path='/favourites' element={<Favourites />} />
