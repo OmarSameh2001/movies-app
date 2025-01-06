@@ -1,22 +1,25 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MovieCard from "../../components/MovieCard/MovieCard";
 import MovieSearch from "../../components/MovieSearch/MovieSearch";
 import MoviePagination from "../../components/MoviePaginaition/MoviePagination";
 import { useSelector } from "react-redux";
+import LanguageContext from "../../context/language";
 
 function Movies() {
   const [movies, setMovies] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [page, setPage] = useState(1);
+  const {lang} = useContext(LanguageContext)
   const favourites = useSelector((state) => state.favourite.value);
-  const apiKey =
-    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMGIwMzNjMTRlYWQzZGNjNWI1MGI5NmY1Y2RhNDI1NSIsInN1YiI6IjY2NjA4ZWQxNzk5Y2VkYzMzYWYyNjc2MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h-AopGEMHd18jKlzGbuY0m0KYABiWi85y15C731RUoQ";
-
+  const apiKey = process.env.REACT_APP_API_KEY
+  const baseUrl = process.env.REACT_APP_Base_Url
+  
   async function getData() {
+    const language = lang === "en" ? "en-US" : "ar-SA"
     const url = searchTerm
-      ? `https://api.themoviedb.org/3/search/movie?query=${searchTerm}`
-      : `https://api.themoviedb.org/3/movie/popular?page=${page}`;
+      ? `${baseUrl}movie?query=${searchTerm}&language=${language}`
+      : `${baseUrl}movie/popular?page=${page}&language=${language}`;
     const { data } = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -33,7 +36,7 @@ function Movies() {
   }
   useEffect(() => {
     getData();
-  }, [searchTerm, page]);
+  }, [searchTerm, page, lang]);
   
   return (
     <div>

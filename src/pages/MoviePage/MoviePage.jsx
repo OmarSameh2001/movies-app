@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaArrowCircleLeft, FaHeart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteFavourite, addFavourite } from "../../store/slices/favourite";
 import { useNavigate, useParams } from "react-router";
+import LanguageContext from "../../context/language";
 
 function MoviePage() {
   const [movie, setMovie] = useState([]);
@@ -11,12 +12,13 @@ function MoviePage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const favourites = useSelector((state) => state.favourite.value);
-  const apiKey =
-    "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjMGIwMzNjMTRlYWQzZGNjNWI1MGI5NmY1Y2RhNDI1NSIsInN1YiI6IjY2NjA4ZWQxNzk5Y2VkYzMzYWYyNjc2MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h-AopGEMHd18jKlzGbuY0m0KYABiWi85y15C731RUoQ";
+  const {lang} = useContext(LanguageContext)
+  const apiKey = process.env.REACT_APP_API_KEY
+  const baseUrl = process.env.REACT_APP_Base_Url
 
   async function getData() {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}`,
+      `${baseUrl}movie/${id}?language=${lang}`,
       {
         headers: {
           Authorization: `Bearer ${apiKey}`,
@@ -34,7 +36,7 @@ function MoviePage() {
   }
   useEffect(() => {
     getData();
-  }, [id]);
+  }, [id, lang]);
   return (
     <div>
       {movie && (

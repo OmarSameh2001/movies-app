@@ -13,7 +13,7 @@ function MovieCard(props) {
   function handleClick() {
     navigate(`/movies/${movie.id}`);
   }
-  console.log(favourites);
+  
   return (
     <div className="card col-md-3 m-3" key={movie.id}>
       <img
